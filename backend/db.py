@@ -1,11 +1,10 @@
 import mysql.connector
 
 connection = mysql.connector.connect(
-    host='localhost',
-    user='root',
-    password='admin',
-    database='admin_dashboard'
+    host="localhost",
+    user="root",
+    password="admin",
+    database="order_management"
 )
 
-def get_connection():
-    return connection
+cursor = connection.cursor(dictionary=True)

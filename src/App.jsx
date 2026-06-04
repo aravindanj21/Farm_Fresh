@@ -1,13 +1,44 @@
 import React from 'react'
-import { BrowserRouter } from 'react-router-dom'
-import AdminRoutes from './admin/routes/AdminRoutes'
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate
+} from 'react-router-dom'
 
-const App = () => {
+import OrderManagement from './order/OrderManagement'
+import ReportsPage from './order/reports/ReportsPage'
+
+function App() {
   return (
     <BrowserRouter>
-      <AdminRoutes />
+      <Routes>
+
+        <Route
+          path="/"
+          element={
+            <Navigate to="/orders" />
+          }
+        />
+
+        <Route
+          path="/orders"
+          element={
+            <OrderManagement />
+          }
+        />
+
+        <Route
+          path="/reports"
+          element={
+            <ReportsPage />
+          }
+        />
+
+      </Routes>
     </BrowserRouter>
   )
 }
 
 export default App
+

@@ -1,23 +1,31 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
-from routes.auth_routes import router as auth_router
-from routes.supplier_routes import router as supplier_router
-from routes.vendor_routes import router as vendor_router
-from routes.product_routes import router as product_router
-from routes.order_routes import router as order_router
-from routes.dashboard_routes import router as dashboard_router
+from routers.orders import router as order_router
+from routers.notifications import router as notification_router
+from routers.reports import router as report_router
+from routers.login import router as login_router
 
 app = FastAPI()
 
-app.include_router(auth_router)
-app.include_router(supplier_router)
-app.include_router(vendor_router)
-app.include_router(product_router)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"]
+)
+
+app.include_router(login_router)
 app.include_router(order_router)
-app.include_router(dashboard_router)
+app.include_router(notification_router)
+app.include_router(report_router)
+
 
 @app.get("/")
 def home():
     return {
-        "message": "FastAPI Backend Running"
+        "message":
+        "Order Management Backend Running"
     }
+
