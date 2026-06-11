@@ -1,0 +1,48 @@
+.my-orders-container {
+  padding: 20px;
+}
+
+.my-orders-container h2 {
+  margin-bottom: 20px;
+}
+
+.filter-section {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.search-input,
+.filter-section select,
+.filter-section input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+}
+
+.orders-table th,
+.orders-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: center;
+}
+
+.orders-table th {
+  background: #2c3e50;
+  color: white;
+}
+
+.orders-table tr:nth-child(even) {
+  background: #f8f9fa;
+}
+
+.orders-table tr:hover {
+  background: #eef4ff;
+}

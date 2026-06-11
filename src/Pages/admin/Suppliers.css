@@ -1,0 +1,47 @@
+.suppliers-container {
+  padding: 20px;
+}
+
+.suppliers-container h2 {
+  margin-bottom: 20px;
+}
+
+.filter-section {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.search-input,
+.filter-section select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.suppliers-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+}
+
+.suppliers-table th,
+.suppliers-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: center;
+}
+
+.suppliers-table th {
+  background: #2c3e50;
+  color: white;
+}
+
+.suppliers-table tr:nth-child(even) {
+  background: #f8f9fa;
+}
+
+.suppliers-table tr:hover {
+  background: #eef4ff;
+}

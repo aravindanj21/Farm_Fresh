@@ -1,0 +1,75 @@
+.vendors-container {
+  padding: 20px;
+}
+
+.vendors-container h2 {
+  margin-bottom: 20px;
+  color: #2c3e50;
+}
+
+.filter-section {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.search-input,
+.filter-section select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  min-width: 220px;
+}
+
+.vendors-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+}
+
+.vendors-table th,
+.vendors-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: center;
+}
+
+.vendors-table th {
+  background: #2c3e50;
+  color: white;
+}
+
+.vendors-table tr:nth-child(even) {
+  background: #f8f9fa;
+}
+
+.vendors-table tr:hover {
+  background: #eef4ff;
+}
+
+.status {
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-weight: 600;
+}
+
+.status.active {
+  background: #d4edda;
+  color: #155724;
+}
+
+.status.inactive {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.status.pending {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.no-data {
+  text-align: center;
+  font-weight: bold;
+}

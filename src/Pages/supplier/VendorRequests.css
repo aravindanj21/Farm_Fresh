@@ -1,0 +1,47 @@
+.vendor-requests-container {
+  padding: 20px;
+}
+
+.vendor-requests-container h2 {
+  margin-bottom: 20px;
+}
+
+.filter-section {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.search-input,
+select,
+input[type="date"] {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.vendor-request-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+}
+
+.vendor-request-table th,
+.vendor-request-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: center;
+}
+
+.vendor-request-table th {
+  background: #2c3e50;
+  color: white;
+}
+
+.vendor-request-table tr:nth-child(even) {
+  background: #f4f4f4;
+}
+
+.vendor-request-table tr:hover {
+  background: #e8f0fe;
+}

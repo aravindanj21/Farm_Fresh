@@ -1,38 +1,32 @@
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
 
+import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
-import Navbar from "./finance/Navbar";
-import FinanceRoutes from "./finance/FinanceRoutes";
+import AppRoutes from "./pages/AppRoutes";
+
+import "./App.css";
 
 function App() {
   return (
     <BrowserRouter>
-      <div style={styles.appContainer}>
-        <Sidebar />
+      <div className="app-container">
 
-        <div style={styles.mainContent}>
-          <Navbar />
+        <Navbar />
 
-          <FinanceRoutes />
+        <div className="main-layout">
+
+          <Sidebar />
+
+          <div className="content-area">
+            <AppRoutes />
+          </div>
+
         </div>
+
       </div>
     </BrowserRouter>
   );
 }
-
-const styles = {
-  appContainer: {
-    display: "flex",
-    minHeight: "100vh",
-    background: "#f4f6f9",
-  },
-
-  mainContent: {
-    flex: 1,
-    padding: "20px",
-    overflowY: "auto",
-  },
-};
 
 export default App;

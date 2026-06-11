@@ -1,297 +1,156 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
+import "./Sidebar.css";
 
 const Sidebar = () => {
-  const [invoiceOpen, setInvoiceOpen] = useState(true);
-  const [billingOpen, setBillingOpen] = useState(true);
-  const [paymentOpen, setPaymentOpen] = useState(true);
-  const [reportOpen, setReportOpen] = useState(true);
+  const role = localStorage.getItem("role") || "admin";
+
+  const [supplierOpen, setSupplierOpen] = useState(false);
+  const [vendorOpen, setVendorOpen] = useState(false);
+  const [adminOpen, setAdminOpen] = useState(false);
 
   return (
-    <div style={styles.sidebar}>
-     
+    <div className="sidebar">
+      <h2 className="sidebar-title">
+        Admin
+      </h2>
 
-      <div style={styles.logo}>
-        <h2>Invoice System</h2>
-      </div>
+      {role === "admin" && (
+        <ul className="sidebar-menu">
 
-      
-
-      <NavLink
-        to="/finance/create-invoice"
-        style={({ isActive }) => ({
-          ...styles.link,
-          background: isActive ? "#2563eb" : "#334155",
-        })}
-      >
-         Dashboard
-      </NavLink>
-
-     
-
-      <div>
-        <button
-          style={styles.menuButton}
-          onClick={() => setInvoiceOpen(!invoiceOpen)}
-        >
-           Invoices
-        </button>
-
-        {invoiceOpen && (
-          <div style={styles.subMenu}>
-            <NavLink
-              to="/finance/create-invoice"
-              style={({ isActive }) => ({
-                ...styles.subLink,
-                background: isActive
-                  ? "#2563eb"
-                  : "transparent",
-              })}
+         
+          <li>
+            <div
+              className="menu-dropdown"
+              onClick={() => setSupplierOpen(!supplierOpen)}
             >
-              Create Invoice
-            </NavLink>
+              <span>Suppliers</span>
+              <span>{supplierOpen ? "▲" : "▼"}</span>
+            </div>
 
-            <NavLink
-              to="/finance/invoices"
-              style={({ isActive }) => ({
-                ...styles.subLink,
-                background: isActive
-                  ? "#2563eb"
-                  : "transparent",
-              })}
+            {supplierOpen && (
+              <ul className="submenu">
+                <li>
+                  <Link to="/supplier/stock-list">
+                    Stock List
+                  </Link>
+                </li>
+
+                <li>
+                  <Link to="/supplier/vendor-requests">
+                    Vendor Requests
+                  </Link>
+                </li>
+              </ul>
+            )}
+          </li>
+
+          
+          <li>
+            <div
+              className="menu-dropdown"
+              onClick={() => setVendorOpen(!vendorOpen)}
             >
-              Invoice List
-            </NavLink>
+              <span>Vendors</span>
+              <span>{vendorOpen ? "▲" : "▼"}</span>
+            </div>
 
-            <NavLink
-              to="/finance/view-invoice"
-              style={({ isActive }) => ({
-                ...styles.subLink,
-                background: isActive
-                  ? "#2563eb"
-                  : "transparent",
-              })}
+            {vendorOpen && (
+              <ul className="submenu">
+                <li>
+                  <Link to="/vendor/browse-products">
+                    Browse Products
+                  </Link>
+                </li>
+
+                <li>
+                  <Link to="/vendor/my-orders">
+                    My Orders
+                  </Link>
+                </li>
+              </ul>
+            )}
+          </li>
+
+          
+          <li>
+            <div
+              className="menu-dropdown"
+              onClick={() => setAdminOpen(!adminOpen)}
             >
-              View Invoice
-            </NavLink>
-          </div>
-        )}
-      </div>
+              <span>Admin</span>
+              <span>{adminOpen ? "▲" : "▼"}</span>
+            </div>
 
-      
+            {adminOpen && (
+              <ul className="submenu">
+                <li>
+                  <Link to="/admin/products">
+                    Products
+                  </Link>
+                </li>
 
-      <div>
-        <button
-          style={styles.menuButton}
-          onClick={() => setBillingOpen(!billingOpen)}
-        >
-           Billing
-        </button>
+                <li>
+                  <Link to="/admin/orders">
+                    Orders
+                  </Link>
+                </li>
 
-        {billingOpen && (
-          <div style={styles.subMenu}>
-            <NavLink
-              to="/finance/billing"
-              style={({ isActive }) => ({
-                ...styles.subLink,
-                background: isActive
-                  ? "#2563eb"
-                  : "transparent",
-              })}
-            >
-              Billing Dashboard
-            </NavLink>
+                <li>
+                  <Link to="/admin/invoices">
+                    Invoices
+                  </Link>
+                </li>
+                 <li>
+                  <Link to="/admin/suppliers">
+                    Suppliers
+                  </Link>
+                </li>
+                 <li>
+                  <Link to="/admin/vendors">
+                    Vendors
+                  </Link>
+                </li>
+              </ul>
+            )}
+          </li>
 
-            <NavLink
-              to="/finance/revenue-overview"
-              style={({ isActive }) => ({
-                ...styles.subLink,
-                background: isActive
-                  ? "#2563eb"
-                  : "transparent",
-              })}
-            >
-              Revenue Overview
-            </NavLink>
+        </ul>
+      )}
 
-            <NavLink
-              to="/finance/paid-amount"
-              style={({ isActive }) => ({
-                ...styles.subLink,
-                background: isActive
-                  ? "#2563eb"
-                  : "transparent",
-              })}
-            >
-              Paid Amount
-            </NavLink>
+      {role === "supplier" && (
+        <ul className="sidebar-menu">
+          <li>
+            <Link to="/supplier/stock-list">
+              Stock List
+            </Link>
+          </li>
 
-            <NavLink
-              to="/finance/pending-amount"
-              style={({ isActive }) => ({
-                ...styles.subLink,
-                background: isActive
-                  ? "#2563eb"
-                  : "transparent",
-              })}
-            >
-              Pending Amount
-            </NavLink>
+          <li>
+            <Link to="/supplier/vendor-requests">
+              Vendor Requests
+            </Link>
+          </li>
+        </ul>
+      )}
 
-            <NavLink
-              to="/finance/overdue-amount"
-              style={({ isActive }) => ({
-                ...styles.subLink,
-                background: isActive
-                  ? "#2563eb"
-                  : "transparent",
-              })}
-            >
-              Overdue Amount
-            </NavLink>
-          </div>
-        )}
-      </div>
+      {role === "vendor" && (
+        <ul className="sidebar-menu">
+          <li>
+            <Link to="/vendor/browse-products">
+              Browse Products
+            </Link>
+          </li>
 
-     
-
-      <div>
-        <button
-          style={styles.menuButton}
-          onClick={() => setPaymentOpen(!paymentOpen)}
-        >
-           Payments
-        </button>
-
-        {paymentOpen && (
-          <div style={styles.subMenu}>
-            <NavLink
-              to="/finance/payments"
-              style={({ isActive }) => ({
-                ...styles.subLink,
-                background: isActive
-                  ? "#2563eb"
-                  : "transparent",
-              })}
-            >
-              Payment History
-            </NavLink>
-
-            <NavLink
-              to="/finance/payment-status"
-              style={({ isActive }) => ({
-                ...styles.subLink,
-                background: isActive
-                  ? "#2563eb"
-                  : "transparent",
-              })}
-            >
-              Payment Status
-            </NavLink>
-
-            <NavLink
-              to="/finance/transaction-details"
-              style={({ isActive }) => ({
-                ...styles.subLink,
-                background: isActive
-                  ? "#2563eb"
-                  : "transparent",
-              })}
-            >
-              Transaction Details
-            </NavLink>
-          </div>
-        )}
-      </div>
-
-      
-
-      <div>
-        <button
-          style={styles.menuButton}
-          onClick={() => setReportOpen(!reportOpen)}
-        >
-          Reports
-        </button>
-
-        {reportOpen && (
-          <div style={styles.subMenu}>
-            <NavLink
-              to="/finance/reports"
-              style={({ isActive }) => ({
-                ...styles.subLink,
-                background: isActive
-                  ? "#2563eb"
-                  : "transparent",
-              })}
-            >
-              Reports Dashboard
-            </NavLink>
-            
-          </div>
-        )}
-      </div>
-      
-      
+          <li>
+            <Link to="/vendor/my-orders">
+              My Orders
+            </Link>
+          </li>
+        </ul>
+      )}
     </div>
   );
-};
-
-const styles = {
-  sidebar: {
-    width: "270px",
-    minHeight: "100vh",
-    background: "#1e293b",
-    color: "#ffffff",
-    padding: "20px",
-    boxSizing: "border-box",
-    overflowY: "auto",
-  },
-
-  logo: {
-    textAlign: "center",
-    marginBottom: "30px",
-    borderBottom: "1px solid #334155",
-    paddingBottom: "15px",
-  },
-
-  link: {
-    display: "block",
-    padding: "12px",
-    color: "#ffffff",
-    textDecoration: "none",
-    borderRadius: "6px",
-    marginBottom: "15px",
-    transition: "0.3s",
-  },
-
-  menuButton: {
-    width: "100%",
-    textAlign: "left",
-    padding: "12px",
-    background: "#334155",
-    border: "none",
-    color: "#ffffff",
-    cursor: "pointer",
-    borderRadius: "6px",
-    marginBottom: "5px",
-    fontSize: "15px",
-  },
-
-  subMenu: {
-    marginLeft: "10px",
-    marginBottom: "15px",
-  },
-
-  subLink: {
-    display: "block",
-    padding: "10px",
-    color: "#ffffff",
-    textDecoration: "none",
-    borderRadius: "5px",
-    marginBottom: "5px",
-    transition: "0.3s",
-  },
 };
 
 export default Sidebar;

@@ -1,0 +1,86 @@
+.products-container {
+  padding: 20px;
+}
+
+.products-container h2 {
+  margin-bottom: 20px;
+  color: #2c3e50;
+}
+
+.filter-section {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.search-input,
+.filter-section select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  min-width: 220px;
+}
+
+.products-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+}
+
+.products-table th,
+.products-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: center;
+}
+
+.products-table th {
+  background: #2c3e50;
+  color: white;
+}
+
+.products-table tr:nth-child(even) {
+  background: #f8f9fa;
+}
+
+.products-table tr:hover {
+  background: #eef4ff;
+}
+
+.stock-status,
+.product-status {
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.stock-status.in-stock {
+  background: #d4edda;
+  color: #155724;
+}
+
+.stock-status.low-stock {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.stock-status.out-of-stock {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.product-status.active {
+  background: #d4edda;
+  color: #155724;
+}
+
+.product-status.inactive {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.no-data {
+  text-align: center;
+  font-weight: bold;
+}
