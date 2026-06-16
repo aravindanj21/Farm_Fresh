@@ -42,134 +42,84 @@ const BillingDashboard = () => {
 
   return (
     <div style={styles.container}>
-      <h1>Billing Dashboard</h1>
+      <h1 style={styles.heading}>
+        Billing Dashboard
+      </h1>
 
-      
       <div style={styles.cardContainer}>
         <div style={styles.card}>
           <h3>Total Revenue</h3>
-          <h2>₹ {totalRevenue.toFixed(2)}</h2>
+          <h2>
+            ₹ {totalRevenue.toLocaleString()}
+          </h2>
         </div>
 
         <div style={styles.card}>
           <h3>Paid Amount</h3>
-          <h2>₹ {paidAmount.toFixed(2)}</h2>
+          <h2>
+            ₹ {paidAmount.toLocaleString()}
+          </h2>
         </div>
 
         <div style={styles.card}>
           <h3>Pending Amount</h3>
-          <h2>₹ {pendingAmount.toFixed(2)}</h2>
+          <h2>
+            ₹ {pendingAmount.toLocaleString()}
+          </h2>
         </div>
 
         <div style={styles.card}>
           <h3>Overdue Amount</h3>
-          <h2>₹ {overdueAmount.toFixed(2)}</h2>
+          <h2>
+            ₹ {overdueAmount.toLocaleString()}
+          </h2>
         </div>
       </div>
 
-      
-      <div style={styles.tableContainer}>
-        <h2>Recent Invoices</h2>
+      <div style={styles.summarySection}>
+        <h2>Billing Summary</h2>
 
-        <table style={styles.table}>
-          <thead>
-            <tr>
-              <th>Invoice No</th>
-              <th>Vendor</th>
-              <th>Supplier</th>
-              <th>Amount</th>
-              <th>Status</th>
-            </tr>
-          </thead>
+        <div style={styles.summaryGrid}>
+          <div style={styles.summaryCard}>
+            <h4>Total Invoices</h4>
+            <p>{invoices.length}</p>
+          </div>
 
-          <tbody>
-            {invoices.length > 0 ? (
-              invoices.slice(-5).reverse().map((invoice, index) => (
-                <tr key={index}>
-                  <td>{invoice.invoiceNumber}</td>
-                  <td>{invoice.vendorName}</td>
-                  <td>{invoice.supplierName}</td>
-                  <td>
-                    ₹{" "}
-                    {Number(
-                      invoice.totalAmount
-                    ).toFixed(2)}
-                  </td>
-                  <td>
-                    <span
-                      style={{
-                        color:
-                          invoice.status === "Paid"
-                            ? "green"
-                            : invoice.status ===
-                              "Pending"
-                            ? "orange"
-                            : invoice.status ===
-                              "Overdue"
-                            ? "red"
-                            : "blue",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      {invoice.status}
-                    </span>
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td
-                  colSpan="5"
-                  style={{
-                    textAlign: "center",
-                  }}
-                >
-                  No Invoice Data Available
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
+          <div style={styles.summaryCard}>
+            <h4>Paid Invoices</h4>
+            <p>
+              {
+                invoices.filter(
+                  (invoice) =>
+                    invoice.status === "Paid"
+                ).length
+              }
+            </p>
+          </div>
 
-      
-      <div style={styles.statsContainer}>
-        <div style={styles.statBox}>
-          <h3>Total Invoices</h3>
-          <p>{invoices.length}</p>
-        </div>
+          <div style={styles.summaryCard}>
+            <h4>Pending Invoices</h4>
+            <p>
+              {
+                invoices.filter(
+                  (invoice) =>
+                    invoice.status === "Pending"
+                ).length
+              }
+            </p>
+          </div>
 
-        <div style={styles.statBox}>
-          <h3>Paid Invoices</h3>
-          <p>
-            {
-              invoices.filter(
-                (i) => i.status === "Paid"
-              ).length
-            }
-          </p>
-        </div>
-
-        <div style={styles.statBox}>
-          <h3>Pending Invoices</h3>
-          <p>
-            {
-              invoices.filter(
-                (i) => i.status === "Pending"
-              ).length
-            }
-          </p>
-        </div>
-
-        <div style={styles.statBox}>
-          <h3>Overdue Invoices</h3>
-          <p>
-            {
-              invoices.filter(
-                (i) => i.status === "Overdue"
-              ).length
-            }
-          </p>
+          <div style={styles.summaryCard}>
+            <h4>Overdue Invoices</h4>
+            <p>
+              {
+                invoices.filter(
+                  (invoice) =>
+                    invoice.status === "Overdue"
+                ).length
+              }
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -178,54 +128,59 @@ const BillingDashboard = () => {
 
 const styles = {
   container: {
-    padding: "25px",
+    minHeight: "100vh",
+    padding: "30px",
+    background: "#eef2ff",
+  },
+
+  heading: {
+    fontSize: "32px",
+    fontWeight: "700",
+    color: "#1e293b",
+    marginBottom: "30px",
+    textAlign: "center",
   },
 
   cardContainer: {
     display: "grid",
-    gridTemplateColumns:
-      "repeat(auto-fit, minmax(220px, 1fr))",
-    gap: "20px",
-    marginTop: "20px",
+    gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+    gap: "25px",
+    marginBottom: "35px",
   },
 
   card: {
+    padding: "30px",
+    borderRadius: "18px",
+    color: "#fff",
+    textAlign: "center",
+    background:
+      "linear-gradient(135deg, #4f46e5, #7c3aed)",
+    boxShadow: "0 10px 25px rgba(79,70,229,0.25)",
+    transition: "0.3s",
+  },
+
+  summarySection: {
     background: "#ffffff",
-    padding: "20px",
-    borderRadius: "10px",
-    boxShadow:
-      "0 2px 8px rgba(0,0,0,0.1)",
-    textAlign: "center",
+    borderRadius: "20px",
+    padding: "30px",
+    boxShadow: "0 10px 30px rgba(0,0,0,0.08)",
   },
 
-  tableContainer: {
-    marginTop: "40px",
-    background: "#fff",
-    padding: "20px",
-    borderRadius: "10px",
-    boxShadow:
-      "0 2px 8px rgba(0,0,0,0.1)",
-  },
-
-  table: {
-    width: "100%",
-    borderCollapse: "collapse",
-  },
-
-  statsContainer: {
+  summaryGrid: {
     display: "grid",
-    gridTemplateColumns:
-      "repeat(auto-fit, minmax(200px, 1fr))",
+    gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
     gap: "20px",
-    marginTop: "30px",
+    marginTop: "25px",
   },
 
-  statBox: {
-    background: "#f8f9fa",
-    padding: "20px",
-    borderRadius: "10px",
+  summaryCard: {
+    background: "#f8fafc",
+    borderRadius: "15px",
+    padding: "25px",
     textAlign: "center",
+    border: "2px solid #e2e8f0",
+    transition: "0.3s",
+    boxShadow: "0 4px 10px rgba(0,0,0,0.05)",
   },
 };
-
 export default BillingDashboard;

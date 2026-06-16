@@ -1,18 +1,33 @@
 from fastapi import APIRouter
-from data.app_data import orders
+from datetime import datetime
 
-router = APIRouter(prefix="/orders", tags=["Orders"])
+from templates.order_success_template import order_success_email
+from services.email_service import send_email
 
-@router.get("/search")
-def search_orders(keyword: str = ""):
+router = APIRouter()
 
-    keyword = keyword.lower()
+@router.put("/approve-order/{order_id}")
+def approve_order(order_id: int):
 
-    result = [
-        order
-        for order in orders
-        if keyword in order["orderId"].lower()
-        or keyword in order["productName"].lower()
-    ]
+    vendor_email = "vendor@gmail.com"
 
-    return result
+    html = order_success_email(
+        order_id=order_id,
+        product_details="Dell Laptop",
+        quantity=10,
+        supplier_name="ABC Suppliers",
+        status="Approved",
+        order_date=str(datetime.now())
+    )
+
+    send_email(
+        to_email=vendor_email,
+        subject="Order Approved",
+        html_content=html,
+        email_type="Order Success"
+    )
+
+    return {
+        "message":
+        "Order Success Email Sent"
+    }

@@ -5,27 +5,16 @@ const Navbar = () => {
   return (
     <div className="navbar">
       <div className="navbar-logo">
-        <h2> Invoice & Billing System</h2>
+        <h2>Invoice & Billing System</h2>
+        <span>Admin Dashboard</span>
       </div>
 
-      <div className="navbar-right">
-        <input
-          type="text"
-          placeholder="Search invoices..."
-          className="search-box"
-        />
+      <div className="profile-card">
+        <div className="avatar">A</div>
 
-        <button className="nav-btn">
-          🔔
-        </button>
-
-        <button className="nav-btn">
-          ⚙️
-        </button>
-
-        <div className="profile-card">
-          <div className="avatar">A</div>
-          <span>Admin</span>
+        <div className="profile-info">
+          <h4>Admin</h4>
+          <p>Administrator</p>
         </div>
       </div>
     </div>

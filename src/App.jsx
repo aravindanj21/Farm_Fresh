@@ -1,30 +1,28 @@
-import React from "react";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Navbar from "./components/Navbar";
-import Sidebar from "./components/Sidebar";
-import AppRoutes from "./pages/AppRoutes";
-
-import "./App.css";
+import VendorRequest from "./pages/vendor/VendorRequest";
+import ApproveOrder from "./pages/supplier/ApproveOrder";
+import Register from "./pages/auth/Register";
 
 function App() {
   return (
     <BrowserRouter>
-      <div className="app-container">
+      <Routes>
+        <Route
+          path="/vendor-request"
+          element={<VendorRequest />}
+        />
 
-        <Navbar />
+        <Route
+          path="/approve-order"
+          element={<ApproveOrder />}
+        />
 
-        <div className="main-layout">
-
-          <Sidebar />
-
-          <div className="content-area">
-            <AppRoutes />
-          </div>
-
-        </div>
-
-      </div>
+        <Route
+          path="/register"
+          element={<Register />}
+        />
+      </Routes>
     </BrowserRouter>
   );
 }

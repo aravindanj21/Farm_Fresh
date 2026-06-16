@@ -241,67 +241,75 @@ const ViewInvoice = () => {
 const styles = {
   container: {
     minHeight: "100vh",
-    padding: "30px",
-    background: "#f1f5f9",
+    background: "#eef2ff",
+    padding: "40px 20px",
   },
 
   invoiceCard: {
-    maxWidth: "900px",
+    maxWidth: "950px",
     margin: "0 auto",
     background: "#ffffff",
-    padding: "30px",
-    borderRadius: "12px",
-    boxShadow:
-      "0 4px 15px rgba(0,0,0,0.1)",
+    borderRadius: "20px",
+    overflow: "hidden",
+    boxShadow: "0 10px 30px rgba(0,0,0,0.1)",
   },
 
   noInvoiceCard: {
     maxWidth: "500px",
     margin: "100px auto",
     background: "#fff",
-    padding: "30px",
+    padding: "40px",
+    borderRadius: "15px",
     textAlign: "center",
-    borderRadius: "10px",
-    boxShadow:
-      "0 4px 12px rgba(0,0,0,0.1)",
+    boxShadow: "0 8px 20px rgba(0,0,0,0.1)",
   },
 
   title: {
+    background: "linear-gradient(135deg,#2563eb,#7c3aed)",
+    color: "#fff",
     textAlign: "center",
-    marginBottom: "20px",
+    padding: "25px",
+    margin: 0,
+    fontSize: "30px",
+    fontWeight: "700",
+    letterSpacing: "1px",
   },
 
   section: {
-    marginTop: "20px",
-    paddingBottom: "10px",
-    borderBottom:
-      "1px solid #e2e8f0",
+    margin: "20px",
+    padding: "20px",
+    background: "#f8fafc",
+    borderRadius: "12px",
+    border: "1px solid #e2e8f0",
   },
 
   totalBox: {
-    marginTop: "25px",
-    padding: "20px",
-    background: "#dcfce7",
-    borderRadius: "10px",
-    textAlign: "right",
+    margin: "20px",
+    padding: "25px",
+    background: "linear-gradient(135deg,#dcfce7,#bbf7d0)",
+    borderRadius: "15px",
+    textAlign: "center",
+    border: "2px solid #16a34a",
   },
 
   btnContainer: {
     display: "flex",
+    justifyContent: "center",
     gap: "15px",
-    marginTop: "25px",
+    padding: "25px",
     flexWrap: "wrap",
   },
 
   btn: {
-    padding: "10px 20px",
+    padding: "12px 25px",
     border: "none",
-    borderRadius: "6px",
+    borderRadius: "8px",
     background: "#2563eb",
     color: "#fff",
     cursor: "pointer",
-    fontSize: "14px",
+    fontSize: "15px",
+    fontWeight: "600",
+    transition: "0.3s",
   },
 };
-
 export default ViewInvoice;

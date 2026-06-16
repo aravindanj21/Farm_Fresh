@@ -1,54 +1,29 @@
-from fastapi import APIRouter, HTTPException
-from pydantic import BaseModel
+from fastapi import APIRouter
+from datetime import datetime
 
-from db import get_connection
-from auth import create_access_token
+from templates.user_registration_template import registration_email
+from services.email_service import send_email
 
 router = APIRouter()
 
+@router.post("/register")
+def register_user(user: dict):
 
-class LoginRequest(BaseModel):
-    username: str
-    password: str
-
-
-@router.post("/login")
-def login(data: LoginRequest):
-
-    conn = get_connection()
-    cursor = conn.cursor(dictionary=True)
-
-    cursor.execute(
-        """
-        SELECT *
-        FROM users
-        WHERE username=%s
-        AND password=%s
-        """,
-        (data.username, data.password)
+    html = registration_email(
+        user_id=user["user_id"],
+        name=user["name"],
+        role=user["role"],
+        registration_date=str(datetime.now())
     )
 
-    user = cursor.fetchone()
-
-    cursor.close()
-    conn.close()
-
-    if not user:
-        raise HTTPException(
-            status_code=401,
-            detail="Invalid Username or Password"
-        )
-
-    token = create_access_token(
-        {
-            "user_id": user["id"],
-            "username": user["username"],
-            "role": user["role"]
-        }
+    send_email(
+        to_email=user["email"],
+        subject="Registration Successful",
+        html_content=html,
+        email_type="Registration"
     )
 
     return {
-        "access_token": token,
-        "token_type": "bearer",
-        "role": user["role"]
+        "message":
+        "Registration Email Sent"
     }

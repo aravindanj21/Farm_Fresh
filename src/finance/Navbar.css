@@ -1,83 +1,84 @@
 .navbar {
-  height: 75px;
-  background: linear-gradient(
-    135deg,
-    #0f172a,
-    #1e3a8a
-  );
+  height: 85px;
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 0 30px;
+  margin-bottom: 25px;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 30px;
-  border-radius: 15px;
-  margin-bottom: 25px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.navbar-logo {
+  display: flex;
+  flex-direction: column;
 }
 
 .navbar-logo h2 {
-  color: white;
   margin: 0;
-  font-size: 24px;
+  color: #1e293b;
+  font-size: 26px;
   font-weight: 700;
 }
 
-.navbar-right {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.search-box {
-  width: 280px;
-  padding: 12px 15px;
-  border: none;
-  border-radius: 25px;
-  outline: none;
-  background: rgba(255,255,255,0.15);
-  color: white;
-  font-size: 14px;
-}
-
-.search-box::placeholder {
-  color: rgba(255,255,255,0.7);
-}
-
-.nav-btn {
-  width: 45px;
-  height: 45px;
-  border: none;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.15);
-  color: white;
-  cursor: pointer;
-  font-size: 18px;
-  transition: 0.3s;
-}
-
-.nav-btn:hover {
-  background: #3b82f6;
-  transform: translateY(-2px);
+.navbar-logo span {
+  margin-top: 4px;
+  color: #64748b;
+  font-size: 13px;
 }
 
 .profile-card {
   display: flex;
   align-items: center;
-  gap: 10px;
-  background: white;
-  padding: 6px 15px;
-  border-radius: 25px;
-  font-weight: 600;
-  color: #1e293b;
+  gap: 12px;
+
+  padding: 8px 16px;
+  border-radius: 15px;
+
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.profile-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
 }
 
 .avatar {
-  width: 35px;
-  height: 35px;
-  background: #2563eb;
+  width: 45px;
+  height: 45px;
+
+  border-radius: 50%;
+
+  background: linear-gradient(
+    135deg,
+    #2563eb,
+    #7c3aed
+  );
+
   color: white;
+  font-weight: bold;
+  font-size: 18px;
+
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 50%;
-  font-weight: bold;
+}
+
+.profile-info h4 {
+  margin: 0;
+  color: #1e293b;
+  font-size: 15px;
+}
+
+.profile-info p {
+  margin: 0;
+  color: #64748b;
+  font-size: 12px;
 }
