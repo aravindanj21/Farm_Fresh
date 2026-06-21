@@ -1,26 +1,30 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
 
-import VendorRequest from "./pages/vendor/VendorRequest";
-import ApproveOrder from "./pages/supplier/ApproveOrder";
-import Register from "./pages/auth/Register";
+import VendorChat from "./pages/vendor/VendorChat";
+import SupplierChat from "./pages/supplier/SupplierChat";
+
+import "./styles/chat.css";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route
-          path="/vendor-request"
-          element={<VendorRequest />}
+          path="/vendor-chat"
+          element={
+            <VendorChat />
+          }
         />
 
         <Route
-          path="/approve-order"
-          element={<ApproveOrder />}
-        />
-
-        <Route
-          path="/register"
-          element={<Register />}
+          path="/supplier-chat"
+          element={
+            <SupplierChat />
+          }
         />
       </Routes>
     </BrowserRouter>
