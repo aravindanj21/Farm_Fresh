@@ -1,33 +1,62 @@
 import {
-  BrowserRouter,
   Routes,
-  Route,
+  Route
 } from "react-router-dom";
 
-import VendorChat from "./pages/vendor/VendorChat";
-import SupplierChat from "./pages/supplier/SupplierChat";
+import SupplierVerification from "./Pages/SupplierVerification";
+import SupplierDashboard from "./pages/SupplierDashboard";
+import SupplierRegister from "./Pages/SupplierRegister";
+import Login from "./Pages/vendorverification/Login";
 
-import "./styles/chat.css";
+
+import AdminSupplierVerification
+  from "./pages/AdminSupplierVerification";
+
+import AddProduct from "./Pages/AddProduct";
+import SupplierOrders from "./Pages/SupplierOrders";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route
-          path="/vendor-chat"
-          element={
-            <VendorChat />
-          }
-        />
+    <Routes>
+      <Route
+       path="/supplier-verification"
+       element={<SupplierVerification />}
+       />      
 
-        <Route
-          path="/supplier-chat"
-          element={
-            <SupplierChat />
-          }
-        />
-      </Routes>
-    </BrowserRouter>
+      <Route
+      path="/supplier-dashboard"
+      element={<SupplierDashboard />}
+      />
+
+      <Route
+     path="/admin/supplier-verifications"
+     element={<AdminSupplierVerification />}
+     />
+
+     <Route
+     path="/supplier-register"
+     element={<SupplierRegister />}
+    />
+
+    <Route
+    path="/login"
+    element={<Login />}
+    />
+
+     <Route
+    path="/add-product"
+    element={<AddProduct />}
+  />
+
+    <Route
+    path="/supplier-orders"
+    element={<SupplierOrders />}
+  />
+
+
+      
+    </Routes>
+   
   );
 }
 
