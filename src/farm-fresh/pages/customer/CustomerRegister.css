@@ -1,0 +1,124 @@
+.customer-register {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #f5f5f5;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.register-box {
+  width: 100%;
+  max-width: 400px;
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #ccc;
+  box-sizing: border-box;
+}
+
+.register-box h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 28px;
+}
+
+.register-box input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.register-box button {
+  width: 100%;
+  padding: 12px;
+  background: green;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+.register-box button:hover {
+  background: darkgreen;
+}
+
+.login-link {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.login-link a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
+}
+
+
+@media (max-width: 768px) {
+  .customer-register {
+    padding: 20px;
+  }
+
+  .register-box {
+    max-width: 360px;
+    padding: 24px;
+  }
+
+  .register-box h2 {
+    font-size: 24px;
+  }
+
+  .register-box input,
+  .register-box button {
+    font-size: 15px;
+    padding: 12px;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .customer-register {
+    padding: 15px;
+    align-items: center;
+  }
+
+  .register-box {
+    max-width: 100%;
+    padding: 20px;
+    border-radius: 8px;
+  }
+
+  .register-box h2 {
+    font-size: 22px;
+    margin-bottom: 18px;
+  }
+
+  .register-box input {
+    font-size: 14px;
+    padding: 11px;
+    margin-bottom: 14px;
+  }
+
+  .register-box button {
+    font-size: 15px;
+    padding: 11px;
+  }
+
+  .login-link {
+    font-size: 13px;
+    margin-top: 16px;
+  }
+}

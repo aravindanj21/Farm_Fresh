@@ -1,0 +1,21 @@
+.customer-sidebar {
+  width: 220px;
+  background: #34495e;
+  color: white;
+  padding-top: 20px;
+}
+
+.customer-sidebar ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.customer-sidebar li {
+  padding: 15px 20px;
+  cursor: pointer;
+}
+
+.customer-sidebar li:hover {
+  background: #2c3e50;
+}

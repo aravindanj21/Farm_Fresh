@@ -1,37 +1,50 @@
 import React from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
-import SupplierSidebar from "./Pages/supplier/SupplierSidebar";
-import SupplierDashboard from "./Pages/supplier/SupplierDashboard";
-import ProductList from "./Pages/supplier/ProductList";
-import AddProduct from "./Pages/supplier/AddProduct";
-import BulkUploadProducts from "./Pages/supplier/BulkUploadProducts";
-import Orders from "./Pages/supplier/Orders";
-
-function SupplierLayout() {
-  return (
-    <div style={{ display: "flex", minHeight: "100vh" }}>
-      <SupplierSidebar />
-
-      <div style={{ flex: 1, padding: "20px", background: "#f5f5f5" }}>
-        <Routes>
-          <Route index element={<Navigate to="dashboard" replace />} />
-          <Route path="dashboard" element={<SupplierDashboard />} />
-          <Route path="products" element={<ProductList />} />
-          <Route path="add-product" element={<AddProduct />} />
-          <Route path="bulk-upload" element={<BulkUploadProducts />} />
-          <Route path="orders" element={<Orders />} />
-        </Routes>
-      </div>
-    </div>
-  );
-}
+import CustomerRegister from "./farm-fresh/pages/customer/CustomerRegister";
+import CustomerLogin from "./farm-fresh/pages/customer/CustomerLogin";
+import OTPLogin from "./farm-fresh/pages/customer/OTPLogin";
+import ForgotPassword from "./farm-fresh/pages/customer/ForgotPassword";
+import ResetPassword from "./farm-fresh/pages/customer/ResetPassword";
+import CustomerDashboard from "./farm-fresh/pages/customer/CustomerDashboar";
+import CustomerProtectedRoute from "./farm-fresh/pages/customer/CustomerProtectedRoute";
 
 export default function App() {
   return (
     <Routes>
-      <Route path="/" element={<Navigate to="/supplier/dashboard" replace />} />
-      <Route path="/supplier/*" element={<SupplierLayout />} />
+      <Route
+        path="/customer-register"
+        element={<CustomerRegister />}
+      />
+
+      <Route
+        path="/customer-login"
+        element={<CustomerLogin />}
+      />
+
+      <Route
+        path="/otp-login"
+        element={<OTPLogin />}
+      />
+
+      <Route
+        path="/forgot-password"
+        element={<ForgotPassword />}
+      />
+
+      <Route
+        path="/reset-password"
+        element={<ResetPassword />}
+      />
+
+      <Route
+        path="/customer/dashboard"
+        element={
+          <CustomerProtectedRoute>
+            <CustomerDashboard />
+          </CustomerProtectedRoute>
+        }
+      />
     </Routes>
   );
 }

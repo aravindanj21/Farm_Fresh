@@ -5,5 +5,5 @@ def get_connection():
         host="localhost",
         user="root",
         password="admin",
-        database="supplier_system_db"
+        database="farm_fresh_db"
     )
