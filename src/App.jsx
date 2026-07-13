@@ -1,6 +1,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 
+import CustomerHome from "./farm-fresh/pages/customer/CustomerHome";
 import CustomerRegister from "./farm-fresh/pages/customer/CustomerRegister";
 import CustomerLogin from "./farm-fresh/pages/customer/CustomerLogin";
 import OTPLogin from "./farm-fresh/pages/customer/OTPLogin";
@@ -8,10 +9,19 @@ import ForgotPassword from "./farm-fresh/pages/customer/ForgotPassword";
 import ResetPassword from "./farm-fresh/pages/customer/ResetPassword";
 import CustomerDashboard from "./farm-fresh/pages/customer/CustomerDashboar";
 import CustomerProtectedRoute from "./farm-fresh/pages/customer/CustomerProtectedRoute";
+import CategoryProducts from "./farm-fresh/pages/customer/CategoryProducts";
+import SearchResults from "./farm-fresh/pages/customer/components/SearchResults";
 
 export default function App() {
   return (
     <Routes>
+      <Route path="/customer-home" element={<CustomerHome />} />
+      <Route
+    path="/category/:id"
+    element={<CategoryProducts />}
+   />
+
+    <Route path="/search" element={<SearchResults />} />
       <Route
         path="/customer-register"
         element={<CustomerRegister />}
@@ -43,6 +53,8 @@ export default function App() {
           <CustomerProtectedRoute>
             <CustomerDashboard />
           </CustomerProtectedRoute>
+
+          
         }
       />
     </Routes>
