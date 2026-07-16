@@ -11,17 +11,23 @@ import CustomerDashboard from "./farm-fresh/pages/customer/CustomerDashboar";
 import CustomerProtectedRoute from "./farm-fresh/pages/customer/CustomerProtectedRoute";
 import CategoryProducts from "./farm-fresh/pages/customer/CategoryProducts";
 import SearchResults from "./farm-fresh/pages/customer/components/SearchResults";
+import ProductDetails from "./farm-fresh/pages/customer/ProductDetails";
+import Cart from "./farm-fresh/pages/customer/Cart";
 
 export default function App() {
   return (
     <Routes>
       <Route path="/customer-home" element={<CustomerHome />} />
       <Route
-    path="/category/:id"
-    element={<CategoryProducts />}
-   />
+       path="/category/:id"
+       element={<CategoryProducts />}
+       />
+   
+    <Route path="/product/:id" element={<ProductDetails />} />
 
+    <Route path="/cart" element={<Cart />} />
     <Route path="/search" element={<SearchResults />} />
+
       <Route
         path="/customer-register"
         element={<CustomerRegister />}
