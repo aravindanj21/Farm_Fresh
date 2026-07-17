@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 import CustomerHome from "./farm-fresh/pages/customer/CustomerHome";
 import CustomerRegister from "./farm-fresh/pages/customer/CustomerRegister";
@@ -17,52 +17,36 @@ import Cart from "./farm-fresh/pages/customer/Cart";
 export default function App() {
   return (
     <Routes>
-      <Route path="/customer-home" element={<CustomerHome />} />
-      <Route
-       path="/category/:id"
-       element={<CategoryProducts />}
-       />
-   
-    <Route path="/product/:id" element={<ProductDetails />} />
+  <Route path="/" element={<Navigate to="/customer-home" replace />} />
 
-    <Route path="/cart" element={<Cart />} />
-    <Route path="/search" element={<SearchResults />} />
+  <Route path="/customer-home" element={<CustomerHome />} />
 
-      <Route
-        path="/customer-register"
-        element={<CustomerRegister />}
-      />
+  <Route path="/category/:id" element={<CategoryProducts />} />
 
-      <Route
-        path="/customer-login"
-        element={<CustomerLogin />}
-      />
+  <Route path="/product/:id" element={<ProductDetails />} />
 
-      <Route
-        path="/otp-login"
-        element={<OTPLogin />}
-      />
+  <Route path="/cart" element={<Cart />} />
 
-      <Route
-        path="/forgot-password"
-        element={<ForgotPassword />}
-      />
+  <Route path="/search" element={<SearchResults />} />
 
-      <Route
-        path="/reset-password"
-        element={<ResetPassword />}
-      />
+  <Route path="/customer-register" element={<CustomerRegister />} />
 
-      <Route
-        path="/customer/dashboard"
-        element={
-          <CustomerProtectedRoute>
-            <CustomerDashboard />
-          </CustomerProtectedRoute>
+  <Route path="/customer-login" element={<CustomerLogin />} />
 
-          
-        }
-      />
-    </Routes>
+  <Route path="/otp-login" element={<OTPLogin />} />
+
+  <Route path="/forgot-password" element={<ForgotPassword />} />
+
+  <Route path="/reset-password" element={<ResetPassword />} />
+
+  <Route
+    path="/customer/dashboard"
+    element={
+      <CustomerProtectedRoute>
+        <CustomerDashboard />
+      </CustomerProtectedRoute>
+    }
+  />
+</Routes>
   );
 }

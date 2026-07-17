@@ -85,11 +85,12 @@ function CategoryProducts() {
             >
 
               <img
-                src={product.image}
-                alt={product.name}
-              />
+  src={product.product_image}
+  alt={product.product_name}
+  className="product-image"
+/>
 
-              <h3>{product.name}</h3>
+<h3>{product.product_name}</h3>
 
               <p>{product.description}</p>
 
