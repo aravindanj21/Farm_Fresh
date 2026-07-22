@@ -4,7 +4,10 @@ from app.database import get_connection
 import random
 from app.auth import create_access_token, verify_token
 
-router = APIRouter()
+router = APIRouter(
+    prefix="/api/customer",
+    tags=["Customer"]
+)
 
 
 
@@ -159,6 +162,7 @@ def login_customer(data: CustomerLogin):
             "success": True,
             "access_token": token,
             "token_type": "bearer",
+             "id": customer["id"], 
             "customer_id": customer["customer_id"],
             "full_name": customer["full_name"],
             "mobile": customer["mobile"]
@@ -255,6 +259,7 @@ def verify_otp(data: OTPVerify):
         "message": "OTP Verified",
         "access_token": token,
         "token_type": "bearer",
+         "id": customer["id"], 
         "customer_id": customer["customer_id"],
         "full_name": customer["full_name"],
         "mobile": customer["mobile"]

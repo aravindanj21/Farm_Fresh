@@ -67,36 +67,23 @@
 }
 
 
-@media (max-width: 768px) {
+@media screen and (max-width: 480px) {
+
     .login-container {
-        padding: 20px;
+        min-height: 100vh;
+        padding: 12px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #f2f2f2;
     }
 
     .login-box {
-        max-width: 340px;
-        padding: 24px;
-    }
-
-    .login-box h2 {
-        font-size: 24px;
-    }
-
-    .login-box input,
-    .login-box button {
-        font-size: 15px;
-    }
-}
-
-
-@media (max-width: 480px) {
-    .login-container {
-        padding: 15px;
-    }
-
-    .login-box {
+        width: 100%;
         max-width: 100%;
-        padding: 20px;
+        padding: 18px;
         border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     }
 
     .login-box h2 {
@@ -105,18 +92,26 @@
     }
 
     .login-box input {
-        padding: 11px;
+        width: 100%;
+        padding: 12px;
         font-size: 14px;
         margin-bottom: 14px;
     }
 
     .login-box button {
-        padding: 11px;
+        width: 100%;
+        padding: 12px;
         font-size: 15px;
     }
 
     .links {
-        font-size: 13px;
         margin-top: 14px;
+        font-size: 13px;
+        text-align: center;
     }
+
+    .links a {
+        font-size: 13px;
+    }
+
 }

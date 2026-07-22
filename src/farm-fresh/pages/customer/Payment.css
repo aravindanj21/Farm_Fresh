@@ -1,0 +1,45 @@
+.payment-container{
+    width:90%;
+    margin:30px auto;
+    display:flex;
+    gap:30px;
+}
+
+.payment-left{
+    flex:2;
+    background:#fff;
+    padding:20px;
+    border-radius:8px;
+}
+
+.payment-right{
+    flex:1;
+    background:#fff;
+    padding:20px;
+    border-radius:8px;
+    height:fit-content;
+}
+
+.address-box{
+    padding:15px;
+    border:1px solid #ddd;
+    border-radius:8px;
+    margin-bottom:20px;
+}
+
+.payment-option{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:20px 0;
+}
+
+.payment-btn{
+    width:100%;
+    padding:12px;
+    border:none;
+    background:green;
+    color:white;
+    border-radius:6px;
+    cursor:pointer;
+}

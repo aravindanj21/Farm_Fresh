@@ -329,6 +329,61 @@
 
 }
 
+.action-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+
+.cart-btn,
+.buy-btn {
+
+    width: 180px;
+    padding: 12px 20px;
+
+    border: none;
+    border-radius: 8px;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+
+.cart-btn {
+
+    background-color: #28a745;
+    color: white;
+
+}
+
+
+.cart-btn:hover {
+
+    background-color: #218838;
+
+}
+
+
+
+.buy-btn {
+
+    background-color: #ff9800;
+    color: white;
+
+}
+
+
+.buy-btn:hover {
+
+    background-color: #e68900;
+
+}
+
 
 
 

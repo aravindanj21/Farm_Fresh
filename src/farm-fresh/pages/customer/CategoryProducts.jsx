@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getProductsByCategory } from "../../services/ProductService";
 import "./CategoryProducts.css";
+import Header from "./components/Header";
+import Navbar from "./components/Navbar";
+import { addToCart as addCartAPI } from "../../services/CartService";
+
 
 function CategoryProducts() {
   const { id } = useParams();
@@ -31,26 +35,35 @@ function CategoryProducts() {
     }
   };
 
-  const addToCart = (e, product) => {
+  const addToCart = async (e, product) => {
+
     e.stopPropagation();
 
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const customer =
+        JSON.parse(localStorage.getItem("customer"));
 
-    const existing = cart.find((item) => item.id === product.id);
 
-    if (existing) {
-      existing.quantity += 1;
-    } else {
-      cart.push({
-        ...product,
-        quantity: 1,
-      });
+    const data = {
+        customer_id: customer.id,
+        product_id: product.id,
+        quantity: 1
+    };
+
+
+    try {
+
+        await addCartAPI(data);
+
+        alert("Added to Cart");
+
+    } catch(err) {
+
+        console.log(err);
+        alert("Cart Error");
+
     }
 
-    localStorage.setItem("cart", JSON.stringify(cart));
-
-    alert("Added to Cart");
-  };
+};
 
   if (loading) {
     return (
@@ -69,6 +82,10 @@ function CategoryProducts() {
   }
 
   return (
+     <>
+    <Header />
+    <Navbar />
+
     <div className="category-products">
 
       <h2>Products</h2>
@@ -129,6 +146,7 @@ function CategoryProducts() {
       </div>
 
     </div>
+    </>
   );
 }
 

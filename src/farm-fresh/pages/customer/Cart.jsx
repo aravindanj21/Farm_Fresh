@@ -1,46 +1,85 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Cart.css";
+import Header from "./components/Header";
+import Navbar from "./components/Navbar";
+import {
+  getCart,
+  updateCart,
+  removeCartItem,
+} from "../../services/CartService";
 
 function Cart() {
   const navigate = useNavigate();
 
   const [cart, setCart] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const customer = JSON.parse(localStorage.getItem("customer"));
 
   useEffect(() => {
-    const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
-    setCart(cartItems);
+    if (!customer) {
+      navigate("/customer-login");
+      return;
+    }
+
+    fetchCart();
   }, []);
 
-  const updateQuantity = (id, type) => {
-    const updatedCart = cart.map((item) => {
-      if (item.id === id) {
-        let qty = item.quantity;
+  const fetchCart = async () => {
+    try {
+      setLoading(true);
 
-        if (type === "increase") {
-          qty += 1;
-        } else if (qty > 1) {
-          qty -= 1;
-        }
+      const response = await getCart(customer.id);
 
-        return {
-          ...item,
-          quantity: qty,
-        };
-      }
-
-      return item;
-    });
-
-    setCart(updatedCart);
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
+      setCart(response.data);
+    } catch (error) {
+      console.log(error);
+      alert("Unable to load cart.");
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const removeItem = (id) => {
-    const updatedCart = cart.filter((item) => item.id !== id);
+  const updateQuantity = async (cartId, type) => {
+    try {
+      const item = cart.find((x) => x.id === cartId);
 
-    setCart(updatedCart);
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
+      if (!item) return;
+
+      let quantity = item.quantity;
+
+      if (type === "increase") {
+        quantity++;
+      } else {
+        if (quantity === 1) return;
+        quantity--;
+      }
+
+      await updateCart(cartId, quantity);
+
+      setCart(
+        cart.map((item) =>
+          item.id === cartId
+            ? { ...item, quantity: quantity }
+            : item
+        )
+      );
+    } catch (error) {
+      console.log(error);
+      alert("Unable to update quantity.");
+    }
+  };
+
+  const removeItem = async (cartId) => {
+    try {
+      await removeCartItem(cartId);
+
+      setCart(cart.filter((item) => item.id !== cartId));
+    } catch (error) {
+      console.log(error);
+      alert("Unable to remove item.");
+    }
   };
 
   const totalItems = cart.reduce(
@@ -58,127 +97,144 @@ function Cart() {
   const grandTotal = totalAmount + deliveryCharge;
 
   return (
-    <div className="cart-container">
+    <>
+      <Header />
+      <Navbar />
 
-      <h1>Shopping Cart</h1>
+      <div className="cart-container">
 
-      {cart.length === 0 ? (
-        <div className="empty-cart">
+        <h1>Shopping Cart</h1>
 
-          <h2>Your Cart is Empty</h2>
+        {loading ? (
+          <h2>Loading...</h2>
+        ) : cart.length === 0 ? (
+          <div className="empty-cart">
 
-          <button onClick={() => navigate("/")}>
-            Continue Shopping
-          </button>
+            <h2>Your Cart is Empty</h2>
 
-        </div>
-      ) : (
-        <>
-          <div className="cart-items">
+            <button onClick={() => navigate("/")}>
+              Continue Shopping
+            </button>
 
-            {cart.map((item) => (
-              <div className="cart-card" key={item.id}>
+          </div>
+        ) : (
+          <>
+            <div className="cart-items">
 
-                <img
-                  src={item.image}
-                  alt={item.name}
-                />
+              {cart.map((item) => (
+                <div className="cart-card" key={item.id}>
 
-                <div className="cart-info">
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                  />
 
-                  <h3>{item.name}</h3>
+                  <div className="cart-info">
 
-                  <p>₹ {item.price}</p>
+                    <h3>{item.name}</h3>
 
-                  <div className="qty-box">
+                    <p>
+                      ₹ {item.price} / {item.unit}
+                    </p>
+
+                    <div className="qty-box">
+
+                      <button
+                        onClick={() =>
+                          updateQuantity(
+                            item.id,
+                            "decrease"
+                          )
+                        }
+                      >
+                        -
+                      </button>
+
+                      <span>{item.quantity}</span>
+
+                      <button
+                        onClick={() =>
+                          updateQuantity(
+                            item.id,
+                            "increase"
+                          )
+                        }
+                      >
+                        +
+                      </button>
+
+                    </div>
+
+                    <h4>
+                      Subtotal : ₹
+                      {item.price * item.quantity}
+                    </h4>
 
                     <button
+                      className="remove-btn"
                       onClick={() =>
-                        updateQuantity(item.id, "decrease")
+                        removeItem(item.id)
                       }
                     >
-                      -
-                    </button>
-
-                    <span>{item.quantity}</span>
-
-                    <button
-                      onClick={() =>
-                        updateQuantity(item.id, "increase")
-                      }
-                    >
-                      +
+                      Remove
                     </button>
 
                   </div>
 
-                  <h4>
-                    Subtotal : ₹
-                    {item.price * item.quantity}
-                  </h4>
-
-                  <button
-                    className="remove-btn"
-                    onClick={() => removeItem(item.id)}
-                  >
-                    Remove
-                  </button>
-
                 </div>
-
-              </div>
-            ))}
-
-          </div>
-
-          <div className="cart-summary">
-
-            <h2>Cart Summary</h2>
-
-            <p>
-              Total Items :
-              <span>{totalItems}</span>
-            </p>
-
-            <p>
-              Total Amount :
-              <span>₹ {totalAmount}</span>
-            </p>
-
-            <p>
-              Delivery Charge :
-              <span>₹ {deliveryCharge}</span>
-            </p>
-
-            <hr />
-
-            <h3>
-              Grand Total :
-              <span>₹ {grandTotal}</span>
-            </h3>
-
-            <div className="summary-buttons">
-
-              <button
-                className="continue-btn"
-                onClick={() => navigate("/")}
-              >
-                Continue Shopping
-              </button>
-
-              <button
-                className="checkout-btn"
-                onClick={() => alert("Checkout Module")}
-              >
-                Proceed to Checkout
-              </button>
+              ))}
 
             </div>
 
-          </div>
-        </>
-      )}
-    </div>
+            <div className="cart-summary">
+
+              <h2>Cart Summary</h2>
+
+              <p>
+                Total Items
+                <span>{totalItems}</span>
+              </p>
+
+              <p>
+                Total Amount
+                <span>₹ {totalAmount}</span>
+              </p>
+
+              <p>
+                Delivery Charge
+                <span>₹ {deliveryCharge}</span>
+              </p>
+
+              <hr />
+
+              <h3>
+                Grand Total
+                <span>₹ {grandTotal}</span>
+              </h3>
+
+              <div className="summary-buttons">
+
+                <button
+                  className="continue-btn"
+                  onClick={() => navigate("/")}
+                >
+                  Continue Shopping
+                </button>
+
+                <button
+                  className="checkout-btn"
+                  onClick={() => navigate("/checkout")}
+                >
+                  Proceed to Checkout
+                </button>
+
+              </div>
+
+            </div>
+          </>
+        )}
+      </div>
+    </>
   );
 }
 

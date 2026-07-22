@@ -1,32 +1,51 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+
 import {
   getProductById,
   getRelatedProducts,
   getSimilarProducts,
 } from "../../services/ProductService";
+
+import { addToCart as addCartAPI } from "../../services/CartService";
+
 import "./ProductDetails.css";
+
+import Navbar from "./components/Navbar";
+import Header from "./components/Header";
+
 
 function ProductDetails() {
 
   const { id } = useParams();
   const navigate = useNavigate();
 
+
   const [product, setProduct] = useState(null);
+
   const [relatedProducts, setRelatedProducts] = useState([]);
+
   const [similarProducts, setSimilarProducts] = useState([]);
+
 
   const [selectedImage, setSelectedImage] = useState("");
 
   const [quantity, setQuantity] = useState(1);
 
+
   const [loading, setLoading] = useState(true);
+
   const [error, setError] = useState("");
 
 
+
   useEffect(() => {
+
     loadProduct();
+
   }, [id]);
+
+
 
 
   const loadProduct = async () => {
@@ -35,41 +54,61 @@ function ProductDetails() {
 
       setLoading(true);
 
-      const productData = await getProductById(id);
 
-      const relatedData = await getRelatedProducts(id);
+      const productData =
+        await getProductById(id);
 
-      const similarData = await getSimilarProducts(id);
+
+      const relatedData =
+        await getRelatedProducts(id);
+
+
+      const similarData =
+        await getSimilarProducts(id);
+
 
 
       setProduct(productData);
 
-      setRelatedProducts(relatedData || []);
 
-      setSimilarProducts(similarData || []);
+      setRelatedProducts(
+        relatedData || []
+      );
 
 
-      
+      setSimilarProducts(
+        similarData || []
+      );
+
+
+
       if(productData.product_images?.length > 0){
 
-        setSelectedImage(productData.product_images[0]);
+        setSelectedImage(
+          productData.product_images[0]
+        );
 
       }
       else{
 
-        setSelectedImage(productData.product_image);
+        setSelectedImage(
+          productData.product_image
+        );
 
       }
 
 
       setError("");
 
+
     }
-    catch(error){
+    catch(err){
 
-      console.log(error);
+      console.log(err);
 
-      setError("Unable to load product.");
+      setError(
+        "Unable to load product"
+      );
 
     }
     finally{
@@ -82,18 +121,24 @@ function ProductDetails() {
 
 
 
+
   const increaseQty = () => {
 
-    setQuantity(prev => prev + 1);
+    setQuantity(
+      prev => prev + 1
+    );
 
   };
+
 
 
   const decreaseQty = () => {
 
     if(quantity > 1){
 
-      setQuantity(prev => prev - 1);
+      setQuantity(
+        prev => prev - 1
+      );
 
     }
 
@@ -101,77 +146,109 @@ function ProductDetails() {
 
 
 
-  const addToCart = () => {
 
 
-    let cart =
-      JSON.parse(localStorage.getItem("cart")) || [];
+  const addProductToCart = async () => {
 
 
-    const existing =
-      cart.find(item => item.id === product.id);
+    const customer =
+      JSON.parse(
+        localStorage.getItem("customer")
+      );
 
 
 
-    if(existing){
+    if(!customer){
 
-      existing.quantity += quantity;
+      alert("Please login first");
 
-    }
-    else{
+      navigate("/customer-login");
 
-      cart.push({
-
-        id: product.id,
-
-        name: product.product_name,
-
-        image: product.product_image,
-
-        price: product.price,
-
-        unit: product.unit,
-
-        quantity: quantity
-
-      });
+      return;
 
     }
 
 
-    localStorage.setItem(
-      "cart",
-      JSON.stringify(cart)
-    );
+
+    const data = {
+
+      customer_id: customer.id,
+
+      product_id: product.id,
+
+      quantity: quantity
+
+    };
 
 
-    alert("Product added to cart");
+
+    try{
+
+
+      await addCartAPI(data);
+
+
+      alert("Added to Cart");
+
+
+    }
+    catch(err){
+
+
+      console.log(err);
+
+
+      alert("Cart Error");
+
+
+    }
+
 
   };
 
 
 
-  const buyNow = () => {
 
-    addToCart();
+
+  const buyNow = async () => {
+
+
+    await addProductToCart();
+
 
     navigate("/cart");
 
+
   };
+
+
 
 
 
   const openProduct = (productId)=>{
 
-    navigate(`/product/${productId}`);
+
+    navigate(
+      `/product/${productId}`
+    );
+
 
   };
 
 
 
+
+
   if(loading){
 
-    return(
+    return (
+
+      <>
+
+      <Header />
+
+      <Navbar />
+
 
       <div className="product-details-container">
 
@@ -181,53 +258,84 @@ function ProductDetails() {
 
       </div>
 
+
+      </>
+
     );
 
   }
 
 
 
+
   if(error || !product){
 
-    return(
+
+    return (
+
+      <>
+
+      <Header />
+
+      <Navbar />
+
 
       <div className="product-details-container">
+
 
         <h2>
           {error || "Product Not Found"}
         </h2>
 
 
-        <button onClick={()=>navigate(-1)}>
+        <button
+          onClick={() => navigate(-1)}
+        >
+
           Go Back
+
         </button>
 
 
       </div>
 
+
+      </>
+
     );
+
 
   }
 
 
 
+
+
+
   return (
+
+    <>
+
+
+    <Header />
+
+    <Navbar />
+
+
 
     <div className="product-details-container">
 
 
-      
 
       <div className="product-details">
 
 
 
-        
-
         <div className="image-section">
 
 
           <div className="main-image">
+
 
             <img
 
@@ -237,7 +345,10 @@ function ProductDetails() {
 
             />
 
+
           </div>
+
+
 
 
 
@@ -248,6 +359,7 @@ function ProductDetails() {
             product.product_images?.map(
               (img,index)=>(
 
+
                 <img
 
                   key={index}
@@ -257,23 +369,24 @@ function ProductDetails() {
                   alt="product"
 
                   className={
-                    selectedImage===img
+                    selectedImage === img
                     ?
                     "active-thumb"
                     :
                     ""
                   }
 
-                  onClick={()=>
+
+                  onClick={() =>
                     setSelectedImage(img)
                   }
 
                 />
 
+
               )
             )
           }
-
 
 
           </div>
@@ -284,14 +397,17 @@ function ProductDetails() {
 
 
 
-       
+
 
         <div className="details-section">
 
 
           <h1>
+
             {product.product_name}
+
           </h1>
+
 
 
 
@@ -302,15 +418,22 @@ function ProductDetails() {
             </strong>
 
             {" "}
+
             {product.category_name}
 
           </p>
 
 
 
+
+
           <h2>
+
             ₹ {product.price}
+
           </h2>
+
+
 
 
 
@@ -321,9 +444,11 @@ function ProductDetails() {
             </strong>
 
             {" "}
+
             {product.unit}
 
           </p>
+
 
 
 
@@ -335,9 +460,11 @@ function ProductDetails() {
             </strong>
 
             {" "}
+
             {product.stock}
 
           </p>
+
 
 
 
@@ -352,8 +479,12 @@ function ProductDetails() {
 
 
           <p>
+
             {product.description}
+
           </p>
+
+
 
 
 
@@ -364,9 +495,11 @@ function ProductDetails() {
             </strong>
 
             {" "}
+
             {product.freshness}
 
           </p>
+
 
 
 
@@ -378,9 +511,11 @@ function ProductDetails() {
             </strong>
 
             {" "}
+
             {product.delivery}
 
           </p>
+
 
 
 
@@ -394,8 +529,11 @@ function ProductDetails() {
 
 
             <span>
+
               {quantity}
+
             </span>
+
 
 
             <button onClick={increaseQty}>
@@ -408,35 +546,24 @@ function ProductDetails() {
 
 
 
+
           <div className="action-buttons">
 
 
-            <button
-
-              className="cart-btn"
-
-              onClick={addToCart}
-
-            >
-
-              Add To Cart
-
-            </button>
+             <button
+    className="cart-btn"
+    onClick={addProductToCart}
+  >
+    Add to Cart
+  </button>
 
 
-
-
-            <button
-
-              className="buy-btn"
-
-              onClick={buyNow}
-
-            >
-
-              Buy Now
-
-            </button>
+  <button
+    className="buy-btn"
+    onClick={buyNow}
+  >
+    Buy Now
+  </button>
 
 
           </div>
@@ -446,13 +573,13 @@ function ProductDetails() {
         </div>
 
 
+
       </div>
 
 
 
 
 
-      
 
       <section className="product-list-section">
 
@@ -460,7 +587,6 @@ function ProductDetails() {
         <h2>
           Related Products
         </h2>
-
 
 
         <div className="product-grid">
@@ -476,7 +602,7 @@ function ProductDetails() {
 
               key={item.id}
 
-              onClick={()=>
+              onClick={() =>
                 openProduct(item.id)
               }
 
@@ -492,15 +618,17 @@ function ProductDetails() {
               />
 
 
-
               <h3>
+
                 {item.product_name}
+
               </h3>
 
 
-
               <p>
+
                 ₹ {item.price}
+
               </p>
 
 
@@ -517,13 +645,16 @@ function ProductDetails() {
       </section>
 
 
+
+
+
+
       <section className="product-list-section">
 
 
         <h2>
           Similar Products
         </h2>
-
 
 
         <div className="product-grid">
@@ -539,9 +670,11 @@ function ProductDetails() {
 
               key={item.id}
 
-              onClick={()=>
+
+              onClick={() =>
                 openProduct(item.id)
               }
+
 
             >
 
@@ -555,15 +688,17 @@ function ProductDetails() {
               />
 
 
-
               <h3>
+
                 {item.product_name}
+
               </h3>
 
 
-
               <p>
+
                 ₹ {item.price}
+
               </p>
 
 
@@ -581,7 +716,11 @@ function ProductDetails() {
 
 
 
+
     </div>
+
+
+    </>
 
   );
 

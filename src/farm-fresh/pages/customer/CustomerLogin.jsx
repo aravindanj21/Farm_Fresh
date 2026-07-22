@@ -26,7 +26,7 @@ function CustomerLogin() {
 
     alert("Login Successful");
 
-    navigate("/customer/dashboard");
+    navigate("/customer-home");
   } catch (err) {
     alert(err.response?.data?.detail || "Invalid Mobile Number or Password");
   }
